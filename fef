@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verification Test</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .quiz-container {
+      background: #161b22;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      background: #238636;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      color: #fff;
+    }
+    .options button:hover {
+      background: #2ea043;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1 id="question">Loading...</h1>
+    <div class="options" id="options"></div>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const quiz = [
+      {
+        question: "Rule #1 says: Terrorist propaganda will result in?",
+        answers: ["Warning", "Temp Ban", "Permanent Ban"],
+        correct: 2
+      },
+      {
+        question: "Which language must be used in <#1236645393048141854>?",
+        answers: ["Turkish", "English", "Russian"],
+        correct: 1
+      },
+      {
+        question: "Are you allowed to share the verification code?",
+        answers: ["Yes", "No"],
+        correct: 1
+      }
+    ];
+
+    let current = 0;
+
+    const qEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const statusEl = document.getElementById("status");
+
+    function loadQuestion() {
+      const q = quiz[current];
+      qEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.onclick = () => checkAnswer(i);
+        optionsEl.appendChild(btn);
+      });
+      statusEl.textContent = `Question ${current+1} of ${quiz.length}`;
+    }
+
+    function checkAnswer(choice) {
+      if (choice === quiz[current].correct) {
+        current++;
+        if (current < quiz.length) {
+          loadQuestion();
+        } else {
+          qEl.textContent = "✅ Verification Complete!";
+          optionsEl.innerHTML = "<p>DM this code to staff: <b>VERIFIED-2025</b></p>";
+          statusEl.textContent = "";
+        }
+      } else {
+        // restart
+        alert("❌ Wrong answer. Restarting test...");
+        current = 0;
+        loadQuestion();
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
