@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acımasız Test</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="modal-backdrop" id="backdrop"></div>
+
+    <div class="app-container" id="app-container">
+        <div class="quiz-container">
+            <div id="progress-container">
+                <span id="progress-text">Soru 1 / 20</span>
+            </div>
+            <div class="question-container">
+                <p id="question-text">Örnek Soru Metni Buraya Gelecek...</p>
+            </div>
+            <div class="answer-options" id="answer-options">
+                </div>
+        </div>
+    </div>
+
+    <div class="modal" id="end-modal">
+        <h3>Testi Bitirdin!</h3>
+        <p>Burası son soru sonrası çıkacak örnek yazı...</p>
+        <div class="modal-options">
+            <button class="modal-btn" id="end-option-1">Örnek Şık 1 (Soldaki)</button>
+            <button class="modal-btn" id="end-option-2">Örnek Şık 2 (Sağdaki)</button>
+        </div>
+    </div>
+
+    <div class="modal" id="confirm-modal">
+        <h3>Emin misin?</h3>
+        <div class="modal-options">
+            <button class="modal-btn danger" id="confirm-yes">Evet!</button>
+            <button class="modal-btn" id="confirm-no">Hayır!</button>
+        </div>
+    </div>
+
+    <div class="modal" id="code-modal">
+        <p>İşte kodun:</p>
+        <h1 class="code-display">128172</h1>
+        <button class="modal-btn" id="code-link-btn">Linke Git (Örnek)</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

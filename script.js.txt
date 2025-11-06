@@ -1,0 +1,195 @@
+// --- DOM ELEMENTLERİNİ SEÇME ---
+const questionText = document.getElementById('question-text');
+const answerOptionsContainer = document.getElementById('answer-options');
+const progressText = document.getElementById('progress-text');
+const appContainer = document.getElementById('app-container');
+const backdrop = document.getElementById('backdrop');
+
+// Modallar
+const endModal = document.getElementById('end-modal');
+const confirmModal = document.getElementById('confirm-modal');
+const codeModal = document.getElementById('code-modal');
+
+// Modal Butonları
+const endOption1Btn = document.getElementById('end-option-1');
+const endOption2Btn = document.getElementById('end-option-2');
+const confirmYesBtn = document.getElementById('confirm-yes');
+const confirmNoBtn = document.getElementById('confirm-no');
+const codeLinkBtn = document.getElementById('code-link-btn');
+
+// --- SES EFEKTLERİ (İSTEĞE BAĞLI) ---
+/*
+Not: Bu ses efektlerinin çalışması için 'success.mp3' ve 'fail.mp3' 
+adında dosyaların script.js ile aynı klasörde olması gerekir.
+Şimdilik bu kodlar yorumda, istersen açarsın.
+*/
+// const successSound = new Audio('success.mp3');
+// const failSound = new Audio('fail.mp3');
+
+
+// --- SORU BANKASI ---
+// !!! BURAYI KENDİNE GÖRE DÜZENLE !!!
+const questions = [
+    {
+        question: "Örnek Soru 1: Bu testin ilk sorusu nedir?",
+        answers: [
+            { text: "Örnek Cevap 1", correct: false },
+            { text: "Örnek Cevap 2 (Doğru Cevap)", correct: true },
+            { text: "Örnek Cevap 3", correct: false },
+            { text: "Örnek Cevap 4", correct: false }
+        ]
+    },
+    {
+        question: "Örnek Soru 2: HTML ne anlama gelir?",
+        answers: [
+            { text: "HyperText Markup Language", correct: true },
+            { text: "Home Tool Markup Language", correct: false },
+            { text: "Hyperlinks and Text Markup Language", correct: false },
+            { text: "Hiçbiri", correct: false }
+        ]
+    },
+    // Buraya 18 tane daha ekle... Şimdilik kopyalayıp çoğaltıyorum.
+    { question: "Örnek Soru 3", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3 (Doğru)", correct: true }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 4", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4 (Doğru)", correct: true }] },
+    { question: "Örnek Soru 5", answers: [{ text: "Cevap 1 (Doğru)", correct: true }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 6", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2 (Doğru)", correct: true }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 7", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3 (Doğru)", correct: true }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 8", answers: [{ text: "Cevap 1 (Doğru)", correct: true }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 9", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4 (Doğru)", correct: true }] },
+    { question: "Örnek Soru 10", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2 (Doğru)", correct: true }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 11", answers: [{ text: "Cevap 1 (Doğru)", correct: true }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 12", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3 (Doğru)", correct: true }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 13", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4 (Doğru)", correct: true }] },
+    { question: "Örnek Soru 14", answers: [{ text: "Cevap 1 (Doğru)", correct: true }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 15", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2 (Doğru)", correct: true }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 16", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4 (Doğru)", correct: true }] },
+    { question: "Örnek Soru 17", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2 (Doğru)", correct: true }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 18", answers: [{ text: "Cevap 1 (Doğru)", correct: true }, { text: "Cevap 2", correct: false }, { text: "Cevap 3", correct: false }, { text: "Cevap 4", correct: false }] },
+    { question: "Örnek Soru 19", answers: [{ text: "Cevap 1", correct: false }, { text: "Cevap 2", correct: false }, { text: "Cevap 3 (Doğru)", correct: true }, { text: "Cevap 4", correct: false }] },
+    {
+        question: "Örnek Soru 20 (SON SORU)",
+        answers: [
+            { text: "Cevap 1", correct: false },
+            { text: "Cevap 2", correct: false },
+            { text: "Cevap 3", correct: false },
+            { text: "Cevap 4 (Doğru Cevap)", correct: true }
+        ]
+    }
+];
+
+let currentQuestionIndex = 0;
+
+// --- ANA FONKSİYONLAR ---
+
+function startTest() {
+    currentQuestionIndex = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    // Önceki cevapları temizle
+    answerOptionsContainer.innerHTML = '';
+
+    // Soru ve ilerleme metnini güncelle
+    let currentQuestion = questions[currentQuestionIndex];
+    questionText.innerText = currentQuestion.question;
+    progressText.innerText = `Soru ${currentQuestionIndex + 1} / ${questions.length}`;
+
+    // Yeni cevap şıklarını oluştur
+    currentQuestion.answers.forEach(answer => {
+        const optionDiv = document.createElement('div');
+        optionDiv.innerText = answer.text;
+        optionDiv.classList.add('option');
+        
+        // Doğru cevabı `data-` attribute olarak sakla
+        optionDiv.dataset.correct = answer.correct;
+
+        // Tıklama olayını ekle
+        optionDiv.addEventListener('click', selectAnswer);
+        
+        answerOptionsContainer.appendChild(optionDiv);
+    });
+}
+
+function selectAnswer(e) {
+    const selectedOption = e.target;
+    const isCorrect = selectedOption.dataset.correct === 'true';
+
+    if (isCorrect) {
+        // Doğru Cevap
+        // successSound.play(); // Ses efektini çal (istersen)
+        
+        // Son soru mu kontrol et
+        if (currentQuestionIndex === questions.length - 1) {
+            // Test bitti
+            showEndModal();
+        } else {
+            // Sonraki soruya geç
+            currentQuestionIndex++;
+            showQuestion();
+        }
+    } else {
+        // Yanlış Cevap
+        // failSound.play(); // Ses efektini çal (istersen)
+
+        // Uyarı ver ve testi baştan başlat (istediğin gibi)
+        alert("YANLIŞ CEVAP! Testi baştan başlatıyorum.");
+        startTest();
+    }
+}
+
+// --- MODAL FONKSİYONLARI ---
+
+function showEndModal() {
+    appContainer.classList.add('blurred');
+    backdrop.classList.add('active');
+    endModal.classList.add('active');
+}
+
+function showConfirmModal() {
+    endModal.classList.remove('active'); // Önceki modalı kapat
+    confirmModal.classList.add('active'); // Yeni modalı aç
+}
+
+function showCodeModal() {
+    endModal.classList.remove('active'); // Önceki modalı kapat
+    codeModal.classList.add('active'); // Yeni modalı aç
+}
+
+function closeAllModals() {
+    appContainer.classList.remove('blurred');
+    backdrop.classList.remove('active');
+    endModal.classList.remove('active');
+    confirmModal.classList.remove('active');
+    codeModal.classList.remove('active');
+}
+
+// --- MODAL BUTON OLAYLARI ---
+
+// Son Ekran -> Şık 1 ("Emin misin?" ekranını açar)
+endOption1Btn.addEventListener('click', showConfirmModal);
+
+// Son Ekran -> Şık 2 (Kod ekranını açar)
+endOption2Btn.addEventListener('click', showCodeModal);
+
+// "Emin misin?" -> Evet (Siteden atar)
+confirmYesBtn.addEventListener('click', () => {
+    alert("Görüşürüz...");
+    // Not: window.close() her zaman çalışmayabilir, about:blank daha garantidir.
+    window.location.href = 'about:blank';
+});
+
+// "Emin misin?" -> Hayır (Bir önceki ekrana döner)
+confirmNoBtn.addEventListener('click', () => {
+    confirmModal.classList.remove('active');
+    endModal.classList.add('active'); // Önceki (Test Bitiş) ekranını geri aç
+});
+
+// Kod Ekranı -> Link Butonu
+codeLinkBtn.addEventListener('click', () => {
+    // Buraya istediğin linki yazabilirsin
+    window.open('https://www.google.com', '_blank');
+});
+
+// --- Testi Başlat ---
+startTest();
