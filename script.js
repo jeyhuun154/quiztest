@@ -23,8 +23,8 @@ Not: Bu ses efektlerinin çalışması için 'success.mp3' ve 'fail.mp3'
 adında dosyaların script.js ile aynı klasörde olması gerekir.
 Şimdilik bu kodlar yorumda, istersen açarsın.
 */
-// const successSound = new Audio('success.mp3');
-// const failSound = new Audio('fail.mp3');
+ const successSound = new Audio('success.mp3');
+ const failSound = new Audio('fail.mp3');
 
 
 // --- SORU BANKASI ---
@@ -117,7 +117,7 @@ function selectAnswer(e) {
 
     if (isCorrect) {
         // Doğru Cevap
-        // successSound.play(); // Ses efektini çal (istersen)
+         successSound.play(); // Ses efektini çal (istersen)
         
         // Son soru mu kontrol et
         if (currentQuestionIndex === questions.length - 1) {
@@ -130,7 +130,7 @@ function selectAnswer(e) {
         }
     } else {
         // Yanlış Cevap
-        // failSound.play(); // Ses efektini çal (istersen)
+         failSound.play(); // Ses efektini çal (istersen)
 
         // Uyarı ver ve testi baştan başlat (istediğin gibi)
         alert("WRONG ANSWER! fuhh im restartin it.");
@@ -193,5 +193,6 @@ codeLinkBtn.addEventListener('click', () => {
 
 // --- Testi Başlat ---
 startTest();
+
 
 
