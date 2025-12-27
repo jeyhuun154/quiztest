@@ -174,7 +174,7 @@ endOption2Btn.addEventListener('click', showCodeModal);
 
 // "Emin misin?" -> Evet (Siteden atar)
 confirmYesBtn.addEventListener('click', () => {
-    alert("Görüşürüz...");
+    alert("Ok ma nigga, see u later");
     // Not: window.close() her zaman çalışmayabilir, about:blank daha garantidir.
     window.location.href = 'about:blank';
 });
@@ -193,3 +193,4 @@ codeLinkBtn.addEventListener('click', () => {
 
 // --- Testi Başlat ---
 startTest();
+
