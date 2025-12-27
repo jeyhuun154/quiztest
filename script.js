@@ -23,8 +23,8 @@ Not: Bu ses efektlerinin çalışması için 'success.mp3' ve 'fail.mp3'
 adında dosyaların script.js ile aynı klasörde olması gerekir.
 Şimdilik bu kodlar yorumda, istersen açarsın.
 */
- const successSound = new Audio('success.mp3');
- const failSound = new Audio('fail.mp3');
+// const successSound = new Audio('success.mp3');
+// const failSound = new Audio('fail.mp3');
 
 
 // --- SORU BANKASI ---
@@ -193,6 +193,7 @@ codeLinkBtn.addEventListener('click', () => {
 
 // --- Testi Başlat ---
 startTest();
+
 
 
 
